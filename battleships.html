@@ -96,3 +96,39 @@
 <div id="message"></div>
 <div id="game-result"></div>
 <button id="reset-button">Reset Game</button>
+
+<script>
+const BOARD_SIZE = 10;
+const SHIPS = [
+  { name: 'Carrier', size: 5 },
+  { name: 'Battleship', size: 4 },
+  { name: 'Cruiser', size: 3 },
+  { name: 'Submarine', size: 3 },
+  { name: 'Destroyer', size: 2 }
+];
+
+class Board {
+  constructor(element, isComputer) {
+    this.element = element;
+    this.isComputer = isComputer;
+    this.cells = [];
+    this.ships = [];
+    this.init();
+  }
+
+  init() {
+    this.element.innerHTML = '';
+    this.cells = [];
+    this.ships = [];
+    for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.index = i;
+      if (this.isComputer) {
+        cell.addEventListener('click', () => this.cellClick(i));
+      }
+      this.element.appendChild(cell);
+      this.cells.push(cell);
+    }
+    this.placeShips();
+  }
