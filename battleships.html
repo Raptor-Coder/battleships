@@ -65,3 +65,34 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
+ #reset-button:hover {
+    background-color: #005f9e;
+  }
+  #game-result {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .win {
+    color: #4CAF50;
+  }
+  .lose {
+    color: #f44336;
+  }
+</style>
+</head>
+<body>
+<div class="game-container">
+  <div>
+    <h2>Your Fleet</h2>
+    <div id="player-board" class="board"></div>
+  </div>
+  <div>
+    <h2>Enemy Waters</h2>
+    <div id="computer-board" class="board"></div>
+  </div>
+</div>
+<div id="message"></div>
+<div id="game-result"></div>
+<button id="reset-button">Reset Game</button>
