@@ -1,0 +1,34 @@
+<html><head>
+<title>Battleships Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff;
+  }
+  .game-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-gap: 1px;
+    background-color: #0077be;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .cell {
+    width: 30px;
+    height: 30px;
+    background-color: #87ceeb;
+    border: 1px solid #4682b4;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
