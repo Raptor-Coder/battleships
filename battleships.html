@@ -132,3 +132,47 @@ class Board {
     }
     this.placeShips();
   }
+
+  placeShips() {
+    SHIPS.forEach(ship => {
+      let placed = false;
+      while (!placed) {
+        const row = Math.floor(Math.random() * BOARD_SIZE);
+        const col = Math.floor(Math.random() * BOARD_SIZE);
+        const isHorizontal = Math.random() < 0.5;
+
+        if (this.canPlaceShip(row, col, ship.size, isHorizontal)) {
+          this.placeShip(row, col, ship.size, isHorizontal);
+          placed = true;
+        }
+      }
+    });
+  }
+
+  canPlaceShip(row, col, size, isHorizontal) {
+    for (let i = 0; i < size; i++) {
+      const r = isHorizontal ? row : row + i;
+      const c = isHorizontal ? col + i : col;
+      if (r >= BOARD_SIZE || c >= BOARD_SIZE || this.ships.includes(r * BOARD_SIZE + c)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  placeShip(row, col, size, isHorizontal) {
+    for (let i = 0; i < size; i++) {
+      const r = isHorizontal ? row : row + i;
+      const c = isHorizontal ? col + i : col;
+      const index = r * BOARD_SIZE + c;
+      this.ships.push(index);
+      if (!this.isComputer) {
+        this.cells[index].classList.add('ship');
+      }
+    }
+  }
+
+  cellClick(index) {
+    if (this.cells[index].classList.contains('hit') || this.cells[index].classList.contains('miss')) {
+      return;
+    }
