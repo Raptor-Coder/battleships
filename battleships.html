@@ -176,3 +176,44 @@ class Board {
     if (this.cells[index].classList.contains('hit') || this.cells[index].classList.contains('miss')) {
       return;
     }
+
+    if (this.ships.includes(index)) {
+      this.cells[index].classList.add('hit');
+      document.getElementById('message').textContent = 'Hit!';
+      this.checkWin();
+    } else {
+      this.cells[index].classList.add('miss');
+      document.getElementById('message').textContent = 'Miss!';
+    }
+
+    if (!this.checkWin()) {
+      setTimeout(() => this.computerTurn(), 1000);
+    }
+  }
+
+  computerTurn() {
+    let index;
+    do {
+      index = Math.floor(Math.random() * (BOARD_SIZE * BOARD_SIZE));
+    } while (playerBoard.cells[index].classList.contains('hit') || playerBoard.cells[index].classList.contains('miss'));
+
+    if (playerBoard.ships.includes(index)) {
+      playerBoard.cells[index].classList.add('hit');
+      document.getElementById('message').textContent = 'Computer hit your ship!';
+      this.checkLoss();
+    } else {
+      playerBoard.cells[index].classList.add('miss');
+      document.getElementById('message').textContent = 'Computer missed!';
+    }
+  }
+
+  checkWin() {
+    if (this.ships.every(index => this.cells[index].classList.contains('hit'))) {
+      document.getElementById('message').textContent = 'Congratulations! You won!';
+      document.getElementById('game-result').textContent = 'YOU WIN!';
+      document.getElementById('game-result').className = 'win';
+      this.disableBoard();
+      return true;
+    }
+    return false;
+  }
