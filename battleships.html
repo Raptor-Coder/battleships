@@ -217,3 +217,35 @@ class Board {
     }
     return false;
   }
+
+  checkLoss() {
+    if (playerBoard.ships.every(index => playerBoard.cells[index].classList.contains('hit'))) {
+      document.getElementById('message').textContent = 'Game over! Computer won!';
+      document.getElementById('game-result').textContent = 'YOU LOSE!';
+      document.getElementById('game-result').className = 'lose';
+      this.disableBoard();
+      return true;
+    }
+    return false;
+  }
+
+  disableBoard() {
+    this.cells.forEach(cell => cell.removeEventListener('click', () => {}));
+  }
+}
+
+let playerBoard, computerBoard;
+
+function initGame() {
+  playerBoard = new Board(document.getElementById('player-board'), false);
+  computerBoard = new Board(document.getElementById('computer-board'), true);
+  document.getElementById('message').textContent = 'Game started! Click on the enemy waters to attack.';
+  document.getElementById('game-result').textContent = '';
+  document.getElementById('game-result').className = '';
+}
+
+document.getElementById('reset-button').addEventListener('click', initGame);
+
+initGame();
+</script>
+</body></html>
